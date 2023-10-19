@@ -36,16 +36,16 @@ public class FilterTaskAuth extends OncePerRequestFilter{
                 "Basic" é o tipo de autenticação selecionada no "Auth" da requisição.
                 remover o "Basic" e o espaço em branco da sequencia de caracteres:
                 */ 
-                var authorization_filtred = authorization.substring("Basic".length()).trim();
+                var authorizationFiltred = authorization.substring("Basic".length()).trim();
     
-                // Decodificar a authorization_filtred, pois vem no formato array de bytes:           "[B@311d1c02"
-                byte[] decoded_authorization = Base64.getDecoder().decode(authorization_filtred);
+                // Decodificar a authorizationFiltred, pois vem no formato array de bytes[B@311d1c02
+                byte[] decodedAuthorization = Base64.getDecoder().decode(authorizationFiltred);
                 
-                // Transformar o decoded_authorization (que é um array de bytes) para string. Após transformado, decoded_authorization_string virá no formato "username:password". Exemplo: "melania_chagas:12345"
-                var decoded_authorization_string = new String(decoded_authorization);
+                // Transformar o decodedAuthorization (que é um array de bytes) para string. Após transformado, decodedAuthorizationString virá no formato "username:password". Exemplo: "melania_chagas:12345"
+                var decodedAuthorizationString = new String(decodedAuthorization);
     
                 // É necessário pegar as informações "username" e "password" separadamente. Primeiramente é feito um "split(":") que irá gerar um array nesse formato: [username, password]"
-                String[] credentials = decoded_authorization_string.split(":");
+                String[] credentials = decodedAuthorizationString.split(":");
     
                 // Agora é possível pegar as informações "username" e "password" separadamente:
                 String username = credentials[0];
@@ -59,9 +59,9 @@ public class FilterTaskAuth extends OncePerRequestFilter{
                 else {
                     // Validar senha
                     // Transforma o 'password' em 'toCharArray()' pois é o formato que a função 'verify' espera.
-                    var password_verify = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
+                    var passwordVerify = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
                     // a função 'verified' retorna true ou false.
-                    if(password_verify.verified) {
+                    if(passwordVerify.verified) {
                         request.setAttribute("idUser", user.getId());
                         filterChain.doFilter(request, response);
                     } else {

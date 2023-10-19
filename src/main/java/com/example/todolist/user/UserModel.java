@@ -17,7 +17,7 @@ import lombok.Data;
 public class UserModel {
     // @Id indica que 'id' é a chave primária do banco de dados;
     // @GeneratedValue() irá gerar automáticamente os id's;
-    // UUID, que significa "Universally Unique Identifier," é um identificador único universal. É uma sequência de caracteres alfanuméricos que é usada para identificar informações de forma exclusiva.
+    // UUID, que significa "Universally Unique Identifier," sequência de caracteres alfanuméricos que é usada para identificar informações de forma exclusiva.
     // @CreationTimestamp: o Lombork (ORM) automaticamente definirá o valor do campo 'createdAt' para a data e hora exatas em que o objeto foi inserido no banco de dados.
 
     @Id
